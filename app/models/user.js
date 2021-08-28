@@ -1,4 +1,5 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 const userScheme = new mongoose.Schema(
     {
         name: {
@@ -19,5 +20,6 @@ const userScheme = new mongoose.Schema(
         timestamps : true
     });
 console.log('creando el model user');
+userScheme.plugin(mongoosePaginate);
 const User = mongoose.model('User', userScheme);
 module.exports = User;

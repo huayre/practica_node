@@ -1,7 +1,15 @@
 const modelUser = require('../models/user');
+const options = {
+    page: 1,
+    limit: 5,
+    collation: {
+        locale: 'en',
+    },
+};
+
 exports.index = (req, res) => {
-    modelUser.find(
-        {}, (err, users) => {
+    modelUser.paginate(
+        {}, options, (err, users) => {
             res.send(users);
         });
 }
