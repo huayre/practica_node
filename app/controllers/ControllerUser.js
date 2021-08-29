@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const modelUser = require('../models/user');
 const multer = require('multer');
-const Module = require("module");
 const options = {
     page: 1,
     limit: 5,

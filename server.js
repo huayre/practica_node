@@ -1,14 +1,15 @@
 const express = require('express');
 const app = express();
-const port = 3000;
+/* paquete para la gestion de variables de entorno*/
+require('dotenv').config();
 /* body parser */
 const bodyParser = require('body-parser');
 app.use(bodyParser.json({
-limit: '20mb'
+    limit: '20mb'
 }));
 app.use(bodyParser.urlencoded({
     limit: '20mb',
-    extended : true
+    extended: true
 }));
 /* database init */
 const initDatabase = require('./config/db')
@@ -24,6 +25,6 @@ app.use(userRouter);
 app.use(itemRouter);
 
 
-app.listen(port, () => {
-    console.log('app succesfull port 3000');
+app.listen(process.env.PORT, () => {
+    console.log('app succesfull port ' + process.env.PORT);
 });
