@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const modelUser = require('../models/user');
+const multer = require('multer');
+const Module = require("module");
 const options = {
     page: 1,
     limit: 5,
@@ -7,13 +9,25 @@ const options = {
         locale: 'en',
     },
 };
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/img')
+    },
+    filename: function (req, file, cb) {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+        cb(null, uniqueSuffix + '-' + file.originalname)
+    }
+})
 
-exports.index = (req, res) => {
+exports.upload = multer({storage: storage})
+
+exports.index = function(req, res) {
     modelUser.paginate(
         {}, options, (err, users) => {
             res.send(users);
         });
 }
+
 exports.store = (req, res) => {
     modelUser.create(req.body, function (err, user) {
         if (!err) {
